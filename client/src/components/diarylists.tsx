@@ -81,7 +81,9 @@ export default function DiaryList(): ReactElement {
 const Main = styled.div`
   width: 18rem;
   height: 11rem;
+  margin: auto;
   margin-top: 2rem;
+
   border: 0.1rem solid grey;
   background-color: white;
   &:hover {
