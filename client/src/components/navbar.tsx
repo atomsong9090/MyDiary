@@ -9,7 +9,10 @@ export default function Navbar(): ReactElement {
   return (
     <Main>
       <MenuBox>
-        <Title>MyDiary</Title>
+        <Title>
+          MyDiary
+          <a href="#" />
+        </Title>
         <UserStatusBox>
           <IconBox>
             <UserAvatar src={turtle} />
@@ -29,13 +32,15 @@ const Main = styled.div`
   background-color: #ffffff;
   height: 4rem;
   border-bottom: 0.1rem solid #646363;
+  width: 100%;
+  position: sticky;
+  top: 0;
 `;
 const MenuBox = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100%;
-  width: 50%;
-
+  width: 60rem;
   margin: auto;
 `;
 const Title = styled.div`
@@ -43,6 +48,9 @@ const Title = styled.div`
   align-items: flex-end;
   height: 100%;
   font-size: 2.5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const UserStatusBox = styled.div`
   display: flex;
@@ -52,7 +60,10 @@ const UserAvatar = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 0.1rem solid black;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const IconBox = styled.div`
   width: 13rem;
@@ -64,23 +75,45 @@ const IconBox = styled.div`
 const WriteDiary = styled.img`
   width: 2rem;
   height: 2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4aeb7;
+  }
 `;
 const ReadDiary = styled.img`
   width: 2rem;
   height: 2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4aeb7;
+  }
 `;
 const UserInfo = styled.img`
   width: 2rem;
   height: 2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4aeb7;
+  }
 `;
 const SignInBtn = styled.button`
   height: 1.5rem;
   background-color: #ffffff;
   border: 0px;
   margin-left: 2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4aeb7;
+    color: white;
+  }
 `;
 const SignUpBtn = styled.button`
   height: 1.5rem;
   background-color: #ffffff;
   border: 0px;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4aeb7;
+    color: white;
+  }
 `;
