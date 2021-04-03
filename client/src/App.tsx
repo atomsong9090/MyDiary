@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import Main from "./pages/Main";
-import Diary from "./pages/diary";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App(): ReactElement {
@@ -9,7 +8,6 @@ function App(): ReactElement {
       <Switch>
         <Route exact path="/">
           <Main />
-          <Diary />
         </Route>
       </Switch>
       <Switch>
