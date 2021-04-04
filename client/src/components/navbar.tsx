@@ -1,27 +1,22 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import turtle from "../assets/turtle.jpeg";
-import create from "../assets/plus.svg";
-import read from "../assets/book.svg";
-import user from "../assets/user.svg";
+import search from "../assets/search.svg";
 
 export default function Navbar(): ReactElement {
   return (
     <Main>
       <MenuBox>
         <Title>
-          MyDiary
+          ABC NATION
           <a href="#" />
         </Title>
+        <SearchBar>
+          <SerchBarInput maxLength={30} placeholder="Ask your Question in here😌" />
+          <SearchIcon src={search} />
+        </SearchBar>
         <UserStatusBox>
-          <IconBox>
-            <UserAvatar src={turtle} />
-            <WriteDiary src={create} />
-            <ReadDiary src={read} />
-            <UserInfo src={user} />
-          </IconBox>
-          <SignInBtn>Sign In</SignInBtn>
           <SignUpBtn>Sign Up</SignUpBtn>
+          <SignInBtn>Sign In</SignInBtn>
         </UserStatusBox>
       </MenuBox>
     </Main>
@@ -29,16 +24,17 @@ export default function Navbar(): ReactElement {
 }
 
 const Main = styled.div`
-  background-color: #ffffff;
   height: 4rem;
   border-bottom: 0.1rem solid #646363;
   width: 100%;
   position: sticky;
   top: 0;
+  background-color: #424040;
 `;
 const MenuBox = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   height: 100%;
   width: 60rem;
   margin: auto;
@@ -46,8 +42,11 @@ const MenuBox = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: flex-end;
+  color: white;
   height: 100%;
   font-size: 2.5rem;
+  font-weight: bold;
+  font-style: oblique;
   &:hover {
     cursor: pointer;
   }
@@ -56,51 +55,14 @@ const UserStatusBox = styled.div`
   display: flex;
   align-items: flex-end;
 `;
-const UserAvatar = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  border: 0.1rem solid black;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-const IconBox = styled.div`
-  width: 13rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-`;
 
-const WriteDiary = styled.img`
-  width: 2rem;
-  height: 2rem;
-  &:hover {
-    cursor: pointer;
-    background-color: #e4aeb7;
-  }
-`;
-const ReadDiary = styled.img`
-  width: 2rem;
-  height: 2rem;
-  &:hover {
-    cursor: pointer;
-    background-color: #e4aeb7;
-  }
-`;
-const UserInfo = styled.img`
-  width: 2rem;
-  height: 2rem;
-  &:hover {
-    cursor: pointer;
-    background-color: #e4aeb7;
-  }
-`;
 const SignInBtn = styled.button`
   height: 1.5rem;
-  background-color: #ffffff;
+  background-color: #424040;
   border: 0px;
-  margin-left: 2rem;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 1rem;
   &:hover {
     cursor: pointer;
     background-color: #e4aeb7;
@@ -108,12 +70,42 @@ const SignInBtn = styled.button`
   }
 `;
 const SignUpBtn = styled.button`
-  height: 1.5rem;
-  background-color: #ffffff;
-  border: 0px;
+  height: 2rem;
+  color: white;
+  background-color: #424040;
+  border: 0.1rem solid white;
+  border-radius: 1rem;
+  margin-left: 1rem;
+  font-size: 1.1rem;
   &:hover {
     cursor: pointer;
     background-color: #e4aeb7;
     color: white;
   }
+`;
+const SearchBar = styled.div`
+  width: 24rem;
+  height: 2rem;
+  border: 0.1rem solid black;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const SerchBarInput = styled.input`
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  border: 0px;
+  :focus {
+    outline: none;
+  }
+  width: 20.5rem;
+  height: 2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+`;
+const SearchIcon = styled.img`
+  width: 2rem;
 `;
