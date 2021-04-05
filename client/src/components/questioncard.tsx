@@ -73,6 +73,7 @@ const Main = styled.div`
   display: flex;
   border: 0.1rem solid grey;
   width: 50rem;
+  background-color: white;
   //min-height: 15rem;
 `;
 const ContentBox = styled.div`

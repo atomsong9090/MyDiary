@@ -3,28 +3,42 @@ import styled from "styled-components";
 import Navbar from "../components/navbar";
 import Menubar from "../components/menubar";
 import Content from "../components/questioncard";
+import UserInfo from "../components/userinfobox";
 
-export default function Main(): ReactElement {
+export default function Language(): ReactElement {
   return (
-    <>
+    <Main>
       <Navbar />
       <Menubar />
       <Contents>
-        <Content />
-        <Content />
-        <Content />
-        <Content />
+        <ContentBox>
+          <Content />
+          <Content />
+        </ContentBox>
+        <UserInfo />
       </Contents>
-    </>
+    </Main>
   );
 }
+const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Contents = styled.div`
   width: 75rem;
   height: 35rem;
   margin: 1rem auto;
-  background-color: white;
-  flex-direction: column;
   display: flex;
-  overflow-x: scroll;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    background-color: #cedff0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #7dc48d;
+  }
+`;
+const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
