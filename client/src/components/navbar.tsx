@@ -65,7 +65,7 @@ const SignInBtn = styled.button`
   border-radius: 1rem;
   &:hover {
     cursor: pointer;
-    background-color: #e4aeb7;
+    background-color: #dfd7d9;
     color: white;
   }
 `;
@@ -79,14 +79,15 @@ const SignUpBtn = styled.button`
   font-size: 1.1rem;
   &:hover {
     cursor: pointer;
-    background-color: #e4aeb7;
+    background-color: #dfd7d9;
     color: white;
   }
 `;
 const SearchBar = styled.div`
   width: 24rem;
   height: 2rem;
-  border: 0.1rem solid black;
+  border: 0.01rem solid white;
+  margin-left: 2rem;
   border-radius: 1rem;
   display: flex;
   align-items: center;
@@ -104,7 +105,7 @@ const SerchBarInput = styled.input`
   }
   width: 20.5rem;
   height: 2rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0);
 `;
 const SearchIcon = styled.img`
   width: 2rem;

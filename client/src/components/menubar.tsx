@@ -14,23 +14,22 @@ export default function Question(): ReactElement {
             {" "}
             <Content style={{ background: "#8469E3" }}>
               <ImgBox>
-                <SubjectImg src={landmark} />
-              </ImgBox>
-              <Title style={{ color: "white" }}>Culture</Title>
-              <Detail>Show Detail ...</Detail>
-              <Description style={{ color: "#eeeed4" }}>Music, Drama, ETC..</Description>
-            </Content>
-          </ContentBox>
-
-          <ContentBox>
-            {" "}
-            <Content style={{ background: "#44CF86" }}>
-              <ImgBox>
                 <SubjectImg src={language} />
               </ImgBox>
               <Title style={{ color: "white" }}>Language</Title>
               <Detail>Show Detail ...</Detail>
               <Description style={{ color: "#eeeed4" }}>Word, Grammar</Description>
+            </Content>
+          </ContentBox>
+          <ContentBox>
+            {" "}
+            <Content style={{ background: "#44CF86" }}>
+              <ImgBox>
+                <SubjectImg src={landmark} />
+              </ImgBox>
+              <Title style={{ color: "white" }}>Culture</Title>
+              <Detail>Show Detail ...</Detail>
+              <Description style={{ color: "#eeeed4" }}>Music, Drama, ETC..</Description>
             </Content>
           </ContentBox>
 

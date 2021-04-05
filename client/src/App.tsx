@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import Main from "./pages/Main";
+import Language from "./pages/language";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App(): ReactElement {
@@ -7,17 +7,17 @@ function App(): ReactElement {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Main />
+          <Language />
         </Route>
       </Switch>
       <Switch>
         <Route exact path="/creatediary">
-          <Main />
+          <Language />
         </Route>
       </Switch>
       <Switch>
         <Route exact path="/readdiary">
-          <Main />
+          <Language />
         </Route>
       </Switch>
     </Router>
