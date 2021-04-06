@@ -13,8 +13,9 @@ export default function UserInfoBox(): ReactElement {
             <UserName>PikaPika</UserName>
             <MypageBtn>mypage</MypageBtn>
           </AvatarBox>
+          <ContentText placeholder="Ask your question in here ..." />
         </UserInfo>
-        <Picture type="file" />
+        <Picture type="file" accept="image/png, image/jpeg" />
       </InfoBox>
     </Main>
   );
@@ -23,7 +24,6 @@ const Main = styled.div`
   width: 20rem;
   display: flex;
   flex-direction: column;
-
   position: sticky;
   top: 0;
 `;
@@ -45,7 +45,7 @@ const CurrentLocation = styled.div`
 const InfoBox = styled.div`
   margin-top: 0.5rem;
   width: 20rem;
-  height: 18rem;
+  height: 31rem;
   background-color: white;
   border: 0.1rem solid grey;
 `;
@@ -53,6 +53,7 @@ const InfoBox = styled.div`
 const UserInfo = styled.div`
   display: flex;
   margin: 0.5rem;
+  flex-direction: column;
 `;
 const AvatarBox = styled.div`
   display: flex;
@@ -87,5 +88,12 @@ const MypageBtn = styled.div`
     color: white;
   }
 `;
-
+const ContentText = styled.textarea`
+  resize: none;
+  margin-top: 1rem;
+  height: 18rem;
+  border: 0.1rem solid grey;
+  border-radius: 0.5rem;
+  background-color: #f3e9e9;
+`;
 const Picture = styled.input``;

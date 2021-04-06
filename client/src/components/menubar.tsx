@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import landmark from "../assets/landmark.svg";
 import history from "../assets/history.svg";
@@ -6,11 +7,16 @@ import language from "../assets/alphabet.svg";
 import travel from "../assets/travel.svg";
 
 export default function Question(): ReactElement {
+  const historys = useHistory();
   return (
     <Main>
       <ContentRank>
         <Contents>
-          <ContentBox>
+          <ContentBox
+            onClick={() => {
+              historys.push("/");
+            }}
+          >
             {" "}
             <Content style={{ background: "#8469E3" }}>
               <ImgBox>
@@ -21,7 +27,11 @@ export default function Question(): ReactElement {
               <Description style={{ color: "#eeeed4" }}>Word, Grammar</Description>
             </Content>
           </ContentBox>
-          <ContentBox>
+          <ContentBox
+            onClick={() => {
+              historys.push("/culture");
+            }}
+          >
             {" "}
             <Content style={{ background: "#44CF86" }}>
               <ImgBox>
@@ -33,7 +43,11 @@ export default function Question(): ReactElement {
             </Content>
           </ContentBox>
 
-          <ContentBox>
+          <ContentBox
+            onClick={() => {
+              historys.push("/history");
+            }}
+          >
             {" "}
             <Content style={{ background: "#ffc0cb" }}>
               <ImgBox>

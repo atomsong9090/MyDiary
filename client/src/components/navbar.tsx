@@ -3,6 +3,11 @@ import styled from "styled-components";
 import search from "../assets/search.svg";
 
 export default function Navbar(): ReactElement {
+  function openSiginUpModal() {
+    const Modal: any = document.querySelector(".signup");
+    Modal.style.display = "flex";
+  }
+
   return (
     <Main>
       <MenuBox>
@@ -15,7 +20,7 @@ export default function Navbar(): ReactElement {
           <SearchIcon src={search} />
         </SearchBar>
         <UserStatusBox>
-          <SignUpBtn>Sign Up</SignUpBtn>
+          <SignUpBtn onClick={openSiginUpModal}>Sign Up</SignUpBtn>
           <SignInBtn>Sign In</SignInBtn>
         </UserStatusBox>
       </MenuBox>

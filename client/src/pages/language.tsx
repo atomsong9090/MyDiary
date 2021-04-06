@@ -1,15 +1,11 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import Navbar from "../components/navbar";
-import Menubar from "../components/menubar";
 import Content from "../components/questioncard";
 import UserInfo from "../components/userinfobox";
 
 export default function Language(): ReactElement {
   return (
     <Main>
-      <Navbar />
-      <Menubar />
       <Contents>
         <ContentBox>
           <Content />
@@ -32,10 +28,10 @@ const Contents = styled.div`
   display: flex;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    background-color: #cedff0;
+    background-color: #cbddf0;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #7dc48d;
+    background-color: #6cd685;
   }
 `;
 const ContentBox = styled.div`
