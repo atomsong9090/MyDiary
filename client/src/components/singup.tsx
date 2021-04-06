@@ -8,51 +8,59 @@ export default function SingUp(): ReactElement {
   }
 
   return (
-    <Main className="signup">
-      <ControllerBox>
-        <BackToMain onClick={closeModal}>X</BackToMain>
-      </ControllerBox>
-      <DescriptionBox>
-        <DescriptioTitle>Sign Up</DescriptioTitle>
-        <Description>Fill in this form to create an account</Description>
-        <DescriptionLine />
-      </DescriptionBox>
-      <UserInfoBox>
-        <InfoBox>
-          <Type1>Email</Type1>
-          <Type2 placeholder="Enter a Email" />
-        </InfoBox>
-        <InfoBox>
-          <Type1>Nickname</Type1>
-          <Type2 maxLength="10" placeholder="Enter a Nickname (5~10 letter )" />
-        </InfoBox>
-        <InfoBox>
-          <Type1>Password</Type1>
-          <Type2 maxLength="12" type="password" placeholder="Enter a Password (8~12 letter )" />
-        </InfoBox>
-        <InfoBox>
-          <Type1>Confirm Password</Type1>
-          <Type2 maxLength="12" type="password" placeholder="Confirm Password" />
-        </InfoBox>
-        <ButtonBox>
-          <SubmitBtn onClick={closeModal}>Sign Up</SubmitBtn>
-        </ButtonBox>
-      </UserInfoBox>
-    </Main>
+    <Background className="signup" style={{ display: "none" }}>
+      <Main>
+        <ControllerBox>
+          <BackToMain onClick={closeModal}>X</BackToMain>
+        </ControllerBox>
+        <DescriptionBox>
+          <DescriptioTitle>Sign Up</DescriptioTitle>
+          <Description>Fill in this form to create an account</Description>
+          <DescriptionLine />
+        </DescriptionBox>
+        <UserInfoBox>
+          <InfoBox>
+            <Type1>Email</Type1>
+            <Type2 placeholder="Enter a Email" />
+          </InfoBox>
+          <InfoBox>
+            <Type1>Nickname</Type1>
+            <Type2 maxLength="10" placeholder="Enter a Nickname (5~10 letter )" />
+          </InfoBox>
+          <InfoBox>
+            <Type1>Password</Type1>
+            <Type2 maxLength="12" type="password" placeholder="Enter a Password (8~12 letter )" />
+          </InfoBox>
+          <InfoBox>
+            <Type1>Confirm Password</Type1>
+            <Type2 maxLength="12" type="password" placeholder="Confirm Password" />
+          </InfoBox>
+          <ButtonBox>
+            <SubmitBtn onClick={closeModal}>Sign Up</SubmitBtn>
+          </ButtonBox>
+        </UserInfoBox>
+      </Main>
+    </Background>
   );
 }
+const Background = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(111, 122, 112, 0.5);
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  display: none;
+`;
 
 const Main = styled.div`
   width: 40rem;
   height: 35rem;
-  margin-left: 40rem;
-  margin-top: 6rem;
+  margin: 6rem auto;
   border: 0.1rem solid grey;
   background-color: white;
-  position: absolute;
   flex-direction: column;
-  display: none;
-  z-index: 1;
+  // z-index: 2;
 `;
 const ControllerBox = styled.div`
   width: 40rem;
@@ -68,8 +76,6 @@ const DescriptionBox = styled.div`
 `;
 const DescriptioTitle = styled.h1`
   margin-left: 1rem;
-  background-color: grey;
-  color: white;
   width: 38rem;
 `;
 const Description = styled.div`
@@ -130,12 +136,13 @@ const ButtonBox = styled.div`
   width: 35.5rem;
 `;
 const SubmitBtn = styled.div`
-  border: 0.2rem solid grey;
-  border-radius: 1rem;
+  border: 0.1rem solid black;
+  width: 100%;
+  background-color: #a19b9b;
+  color: white;
   height: 2rem;
-  width: 5rem;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   display: flex;
   justify-content: center;
   align-items: center;

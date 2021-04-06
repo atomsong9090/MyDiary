@@ -59,7 +59,11 @@ export default function Question(): ReactElement {
             </Content>
           </ContentBox>
 
-          <ContentBox>
+          <ContentBox
+            onClick={() => {
+              historys.push("/travel");
+            }}
+          >
             {" "}
             <Content style={{ background: " skyblue" }}>
               <ImgBox>

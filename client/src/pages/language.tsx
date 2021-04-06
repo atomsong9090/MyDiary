@@ -28,10 +28,10 @@ const Contents = styled.div`
   display: flex;
   overflow-y: scroll;
   ::-webkit-scrollbar {
-    background-color: #cbddf0;
+    background-color: #4b4b4b;
   }
   ::-webkit-scrollbar-thumb {
-    background-color: #6cd685;
+    background-color: #83e299;
   }
 `;
 const ContentBox = styled.div`

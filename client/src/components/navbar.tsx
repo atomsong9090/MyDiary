@@ -3,9 +3,24 @@ import styled from "styled-components";
 import search from "../assets/search.svg";
 
 export default function Navbar(): ReactElement {
-  function openSiginUpModal() {
-    const Modal: any = document.querySelector(".signup");
-    Modal.style.display = "flex";
+  console.log(document.querySelector(".signup"));
+  console.log(document.querySelector(".signin"));
+  //
+  function openSignUpModal() {
+    const SignUpModal: any = document.querySelector(".signup");
+    const SignInModal: any = document.querySelector(".signin");
+
+    if (SignInModal.style.display === "none") {
+      SignUpModal.style.display = "flex";
+    }
+  }
+  function openSignInModal() {
+    const SignUpModal: any = document.querySelector(".signup");
+    const SignInModal: any = document.querySelector(".signin");
+
+    if (SignUpModal.style.display === "none") {
+      SignInModal.style.display = "flex";
+    }
   }
 
   return (
@@ -20,8 +35,8 @@ export default function Navbar(): ReactElement {
           <SearchIcon src={search} />
         </SearchBar>
         <UserStatusBox>
-          <SignUpBtn onClick={openSiginUpModal}>Sign Up</SignUpBtn>
-          <SignInBtn>Sign In</SignInBtn>
+          <SignUpBtn onClick={openSignUpModal}>Sign Up</SignUpBtn>
+          <SignInBtn onClick={openSignInModal}>Sign In</SignInBtn>
         </UserStatusBox>
       </MenuBox>
     </Main>

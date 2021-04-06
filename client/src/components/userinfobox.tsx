@@ -1,11 +1,25 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import avatar from "../assets/pika.png";
 
 export default function UserInfoBox(): ReactElement {
+  const history = useHistory();
+  let currentPage = history.location.pathname;
+  let pageName = currentPage.slice(1);
+  let pageColor = "#8469e3";
+  pageName = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+  if (pageName === "Culture") {
+    pageColor = "#44CF86";
+  } else if (pageName === "History") {
+    pageColor = "#FFC0CB";
+  } else if (pageName === "Travel") {
+    pageColor = "#87CEEB";
+  }
+
   return (
     <Main>
-      <CurrentLocation>Language</CurrentLocation>
+      <CurrentLocation style={{ backgroundColor: pageColor }}>{pageName ? pageName : "Language"}</CurrentLocation>
       <InfoBox>
         <UserInfo>
           <AvatarBox>
@@ -34,8 +48,6 @@ const CurrentLocation = styled.div`
   height: 3rem;
   font-size: 2.5rem;
   border: 0.1rem solid grey;
-  //margin: auto;
-  background-color: #8469e3;
   display: flex;
   justify-content: center;
   color: white;
