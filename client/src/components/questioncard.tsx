@@ -6,6 +6,16 @@ import heart from "../assets/heart.svg";
 import heartSolid from "../assets/heart-solid.svg";
 
 export default function Banner(): ReactElement {
+  function openUserInfoModal() {
+    const modal: any = document.querySelector(".modal");
+
+    if (modal.style.display === "flex") {
+      modal.style.display = "none";
+    } else {
+      modal.style.display = "flex";
+    }
+  }
+
   return (
     <Main>
       <ContentBox className="content">
@@ -44,10 +54,18 @@ export default function Banner(): ReactElement {
                 <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", marginLeft: "1rem" }} />
                 <TitleBox>
                   <UserInfo>
-                    <UserName>꼬부기</UserName>
+                    <UserName onClick={() => openUserInfoModal()}>꼬부기</UserName>
                     <CountryImg src={country} />
                     <CountryName> South Korea</CountryName>
                   </UserInfo>
+                  <UserInfoModal className="modal" style={{ display: "none" }}>
+                    <ModalListWrapper>
+                      <GoToGuestBook>꼬부기's GuestBook</GoToGuestBook>
+                    </ModalListWrapper>
+                    <ModalListWrapper>
+                      <GoToUserContents>꼬부기's Contents</GoToUserContents>
+                    </ModalListWrapper>
+                  </UserInfoModal>
                   <CommentText>한국어로 "오렌지" 입니다.</CommentText>
                 </TitleBox>
               </TitleInfo>
@@ -100,6 +118,48 @@ const CreatedAt = styled.span``;
 const TitleInfo = styled.div`
   display: flex;
 `;
+
+const UserInfoModal = styled.div`
+  //position: absolute;
+
+  background-color: white;
+  flex-direction: column;
+  border: 0.2rem solid skyblue;
+  //z-index: 1;
+  position: absolute;
+`;
+const GoToGuestBook = styled.div`
+  width: 10rem;
+`;
+const GoToUserContents = styled.div`
+  width: 10rem;
+`;
+
+const ModalListWrapper = styled.div`
+  width: 11rem;
+  height: 2rem;
+  display: flex;
+  z-index: 1;
+  //margin-left: 1rem;
+  justify-content: center;
+  align-items: center;
+  border: 0.1rem solid grey;
+  font-size: 1.1rem;
+  font-weight: 400;
+  &:hover {
+    background-color: grey;
+    ${GoToGuestBook} {
+      color: white;
+      font-weight: bold;
+    }
+    ${GoToUserContents} {
+      color: white;
+      font-weight: bold;
+    }
+    cursor: pointer;
+  }
+`;
+
 const UserInfo = styled.div`
   display: flex;
   align-items: flex-start;
@@ -121,6 +181,9 @@ const UserAvatar = styled.img`
 const UserName = styled.div`
   font-weight: bold;
   font-size: 1.2rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Ask = styled.div`
@@ -175,8 +238,12 @@ const Comment = styled.div`
   border-radius: 1rem;
   min-height: 4rem;
   margin-top: 1rem;
+  //position: relative;
 `;
-const CommentText = styled.div``;
+const CommentText = styled.div`
+  z-index: 0;
+  //position: absolute;
+`;
 const CommentLikeBox = styled.div`
   display: flex;
 `;

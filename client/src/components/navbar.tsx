@@ -1,11 +1,13 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 import search from "../assets/search.svg";
+import home from "../assets/home.svg";
+import guestBook from "../assets/guestbook.svg";
+import userinfo from "../assets/user.svg";
 
 export default function Navbar(): ReactElement {
-  console.log(document.querySelector(".signup"));
-  console.log(document.querySelector(".signin"));
-  //
+  const isLogin = sessionStorage.getItem("login");
+
   function openSignUpModal() {
     const SignUpModal: any = document.querySelector(".signup");
     const SignInModal: any = document.querySelector(".signin");
@@ -22,6 +24,10 @@ export default function Navbar(): ReactElement {
       SignInModal.style.display = "flex";
     }
   }
+  function setLogOut(): any {
+    sessionStorage.setItem("login", "no");
+    window.location.reload();
+  }
 
   return (
     <Main>
@@ -34,10 +40,25 @@ export default function Navbar(): ReactElement {
           <SerchBarInput maxLength={30} placeholder="Ask your Question in here😌" />
           <SearchIcon src={search} />
         </SearchBar>
-        <UserStatusBox>
-          <SignUpBtn onClick={openSignUpModal}>Sign Up</SignUpBtn>
-          <SignInBtn onClick={openSignInModal}>Sign In</SignInBtn>
-        </UserStatusBox>
+        {isLogin !== "ok" ? (
+          <UserStatusBox>
+            <SignUpBtn onClick={openSignUpModal}>Sign Up</SignUpBtn>
+            <SignInBtn onClick={openSignInModal}>Sign In</SignInBtn>
+          </UserStatusBox>
+        ) : (
+          <UserStatusBox_login>
+            <BtnBox>
+              <HomeBtn src={home} />
+            </BtnBox>
+            <BtnBox>
+              <GuestBook src={guestBook} />
+            </BtnBox>
+            <BtnBox>
+              <MyPage src={userinfo} />
+            </BtnBox>
+            <SignOutBtn onClick={() => setLogOut()}>Sign Out</SignOutBtn>
+          </UserStatusBox_login>
+        )}
       </MenuBox>
     </Main>
   );
@@ -74,6 +95,13 @@ const Title = styled.div`
 const UserStatusBox = styled.div`
   display: flex;
   align-items: flex-end;
+  width: 14rem;
+`;
+
+const UserStatusBox_login = styled.div`
+  display: flex;
+  align-items: flex-end;
+  width: 14rem;
 `;
 
 const SignInBtn = styled.button`
@@ -89,6 +117,20 @@ const SignInBtn = styled.button`
     color: white;
   }
 `;
+const SignOutBtn = styled.button`
+  height: 1.5rem;
+  background-color: #424040;
+  border: 0px;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  &:hover {
+    cursor: pointer;
+    //background-color: #dfd7d9;
+    border: 0.1rem solid white;
+    color: white;
+  }
+`;
 const SignUpBtn = styled.button`
   height: 2rem;
   color: white;
@@ -101,6 +143,43 @@ const SignUpBtn = styled.button`
     cursor: pointer;
     background-color: #dfd7d9;
     color: white;
+  }
+`;
+const BtnBox = styled.div`
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 0.15rem solid white;
+  margin-left: 0.3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const HomeBtn = styled.img`
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    width: 2.2rem;
+    height: 2.2rem;
+    cursor: pointer;
+  }
+`;
+const GuestBook = styled.img`
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    width: 2.2rem;
+    height: 2.2rem;
+    cursor: pointer;
+  }
+`;
+const MyPage = styled.img`
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    width: 2.2rem;
+    height: 2.2rem;
+    cursor: pointer;
   }
 `;
 const SearchBar = styled.div`

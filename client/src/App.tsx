@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
-import Language from "./pages/language";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Language from "./pages/language";
+import Mypage from "./pages/mypage";
 import Navbar from "./components/navbar";
 import Menubar from "./components/menubar";
 import Signup from "./components/singup";
@@ -43,6 +44,14 @@ function App(): ReactElement {
           <SignIn />
           <Menubar />
           <Language />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/mypage">
+          <Navbar />
+          <Signup />
+          <SignIn />
+          <Mypage />
         </Route>
       </Switch>
     </Router>

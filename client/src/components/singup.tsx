@@ -60,7 +60,6 @@ const Main = styled.div`
   border: 0.1rem solid grey;
   background-color: white;
   flex-direction: column;
-  // z-index: 2;
 `;
 const ControllerBox = styled.div`
   width: 40rem;

@@ -6,6 +6,10 @@ export default function SingIn(): ReactElement {
     const modal: any = document.querySelector(".signin");
     modal.style.display = "none";
   }
+  function setLogin(): any {
+    sessionStorage.setItem("login", "ok");
+    window.location.reload();
+  }
 
   return (
     <Background className="signin" style={{ display: "none" }}>
@@ -23,7 +27,7 @@ export default function SingIn(): ReactElement {
           <MenuInput type="password" placeholder="Enter your Password" />
         </InfoBox>
         <Notificate>Wrong ID & Password</Notificate>
-        <SingInBtn>Sign In</SingInBtn>
+        <SingInBtn onClick={() => setLogin()}>Sign In</SingInBtn>
       </Main>
     </Background>
   );

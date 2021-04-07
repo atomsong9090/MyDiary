@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import Content from "../components/questioncard";
 import UserInfo from "../components/userinfobox";
@@ -6,7 +6,7 @@ import UserInfo from "../components/userinfobox";
 export default function Language(): ReactElement {
   return (
     <Main>
-      <Contents>
+      <Contents className="contents">
         <ContentBox>
           <Content />
           <Content />
