@@ -48,9 +48,9 @@ export default function UserStatus(): ReactElement {
 }
 
 const Main = styled.div`
-  width: 50rem;
+  width: 52rem;
   height: 22rem;
-  border: 1px solid black;
+  border: 1px solid #dfdada;
   margin: 2rem auto;
   background-color: white;
   display: flex;

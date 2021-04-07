@@ -1,11 +1,13 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router";
 import search from "../assets/search.svg";
 import home from "../assets/home.svg";
 import guestBook from "../assets/guestbook.svg";
 import userinfo from "../assets/user.svg";
 
 export default function Navbar(): ReactElement {
+  const history = useHistory();
   const isLogin = sessionStorage.getItem("login");
 
   function openSignUpModal() {
@@ -32,9 +34,12 @@ export default function Navbar(): ReactElement {
   return (
     <Main>
       <MenuBox>
-        <Title>
+        <Title
+          onClick={() => {
+            history.push("/");
+          }}
+        >
           ABC NATION
-          <a href="#" />
         </Title>
         <SearchBar>
           <SerchBarInput maxLength={30} placeholder="Ask your Question in here😌" />
@@ -48,13 +53,23 @@ export default function Navbar(): ReactElement {
         ) : (
           <UserStatusBox_login>
             <BtnBox>
-              <HomeBtn src={home} />
+              <HomeBtn
+                src={home}
+                onClick={() => {
+                  history.push("/");
+                }}
+              />
             </BtnBox>
             <BtnBox>
               <GuestBook src={guestBook} />
             </BtnBox>
             <BtnBox>
-              <MyPage src={userinfo} />
+              <MyPage
+                src={userinfo}
+                onClick={() => {
+                  history.push("/mypage");
+                }}
+              />
             </BtnBox>
             <SignOutBtn onClick={() => setLogOut()}>Sign Out</SignOutBtn>
           </UserStatusBox_login>
