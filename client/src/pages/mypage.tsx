@@ -6,13 +6,12 @@ export default function Mypage(): ReactElement {
   return (
     <>
       <Main>
-        <UserStatus>
-          <UserInfo />
-        </UserStatus>
+        <UserInfo />
       </Main>
     </>
   );
 }
 
-const Main = styled.div``;
-const UserStatus = styled.div``;
+const Main = styled.div`
+  display: flex;
+`;

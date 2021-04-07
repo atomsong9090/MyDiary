@@ -10,44 +10,57 @@ import info from "../assets/info.svg";
 export default function UserStatus(): ReactElement {
   return (
     <Main>
-      <UserInfoBox>
-        <AvatarWrapper>
-          <Avatar src={avatar} />
-        </AvatarWrapper>
-        <UserName>면목동꿀주먹</UserName>
-        <InfoBox>
-          <InfoImg src={country} />
-          <InfoDescription>South Korea</InfoDescription>
-        </InfoBox>
-        <InfoBox>
-          <InfoImg src={join} />
-          <InfoDescription>2021-04-07</InfoDescription>
-        </InfoBox>
-      </UserInfoBox>
-      <ControllerBox>
-        <ButtonWrapper>
-          <ButtonImg src={addfriend} />
-        </ButtonWrapper>
-        <ButtonWrapper>
-          <ButtonImg src={message} />
-        </ButtonWrapper>
-        <ButtonWrapper>
-          <ButtonImg src={info} />
-        </ButtonWrapper>
-      </ControllerBox>
+      <Information>
+        <UserInfoBox>
+          <AvatarWrapper>
+            <Avatar src={avatar} />
+          </AvatarWrapper>
+          <UserName>면목동꿀주먹</UserName>
+          <InfoBox>
+            <InfoImg src={country} />
+            <InfoDescription>South Korea</InfoDescription>
+          </InfoBox>
+          <InfoBox>
+            <InfoImg src={join} />
+            <InfoDescription>2021-04-07</InfoDescription>
+          </InfoBox>
+        </UserInfoBox>
+        <ControllerBox>
+          <ButtonWrapper>
+            <ButtonImg src={addfriend} />
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <ButtonImg src={message} />
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <ButtonImg src={info} />
+          </ButtonWrapper>
+        </ControllerBox>
+      </Information>
+      <Contents>
+        <ContentButton style={{ borderBottom: "0.2rem solid skyblue" }}>Contents</ContentButton>
+        <ContentButton>Comments</ContentButton>
+        <ContentButton>Likes</ContentButton>
+        <ContentButton>ETC</ContentButton>
+      </Contents>
     </Main>
   );
 }
 
 const Main = styled.div`
   width: 50rem;
-  height: 20rem;
+  height: 22rem;
   border: 1px solid black;
   margin: 2rem auto;
   background-color: white;
   display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+`;
+const Information = styled.div`
+  display: flex;
   justify-content: space-between;
-  //
+  width: 100%;
 `;
 const UserInfoBox = styled.div`
   display: flex;
@@ -112,5 +125,27 @@ const ButtonImg = styled.img`
     background-color: #a1a0a0;
     width: 2.3rem;
     height: 2.3rem;
+  }
+`;
+const Contents = styled.div`
+  width: 100%;
+  height: 3rem;
+  background-color: red;
+  display: flex;
+  box-sizing: border-box;
+`;
+const ContentButton = styled.button`
+  width: 25%;
+  background-color: white;
+  font-size: 1.2rem;
+  border: 0;
+  &:hover {
+    cursor: pointer;
+    background-color: #acacac;
+    color: white;
+  }
+
+  :focus {
+    outline: none;
   }
 `;
