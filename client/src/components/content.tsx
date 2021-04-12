@@ -5,7 +5,9 @@ import country from "../assets/country.svg";
 import heart from "../assets/heart.svg";
 import heartSolid from "../assets/heart-solid.svg";
 
-export default function Banner(): ReactElement {
+export default function Banner(props: any): ReactElement {
+  const { contentData } = props;
+  console.log(contentData);
   function openUserInfoModal() {
     const modal: any = document.querySelector(".modal");
 
@@ -19,29 +21,34 @@ export default function Banner(): ReactElement {
   return (
     <Main>
       <ContentBox className="content">
-        <Content>
-          <ContentInfo>
-            <TitleInfo className="userInfo">
-              <UserAvatar src={avatar} style={{ height: "4rem", width: "4rem" }} />
-              <TitleBox>
-                <UserInfo>
-                  <UserName>TurtleMan</UserName>
-                  <CountryImg src={country} />
-                  <CountryName> South Korea</CountryName>
-                </UserInfo>
-                <Title>How to Say Orange in korean?</Title>
-                <CreatedAt>2021-04-05</CreatedAt>
-              </TitleBox>
-            </TitleInfo>
-          </ContentInfo>
-          <Ask>
-            <AskText>i've watched it in drama lastnight</AskText>
-            <CommentBtnBox>
-              <CommentBtn> 1 Comments</CommentBtn>
-            </CommentBtnBox>
-          </Ask>
-        </Content>
-        <Comments>
+        {contentData ? (
+          <Content>
+            <ContentInfo>
+              <TitleInfo className="userInfo">
+                <UserAvatar src={avatar} style={{ height: "4rem", width: "4rem" }} />
+                <TitleBox>
+                  <UserInfo>
+                    <UserName>TurtleMan</UserName>
+                    <CountryImg src={country} />
+                    <CountryName> South Korea</CountryName>
+                  </UserInfo>
+                  <Title>{contentData.title}</Title>
+                  <CreatedAt>{contentData.createdAt}</CreatedAt>
+                </TitleBox>
+              </TitleInfo>
+            </ContentInfo>
+            <Ask>
+              <AskText>{contentData.text}</AskText>
+              <CommentBtnBox>
+                <CommentBtn> {contentData.likes.length} Comments</CommentBtn>
+              </CommentBtnBox>
+            </Ask>
+          </Content>
+        ) : (
+          ""
+        )}
+
+        <Comments className="comments" style={{ display: "none" }}>
           <CommentBox>
             <CreateComment>
               <CommentInputBox>

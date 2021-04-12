@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
@@ -6,7 +6,7 @@ import avatar from "../assets/pika.png";
 
 axios.defaults.baseURL = "http://52.79.253.196:4000/";
 
-export default function UserInfoBox(): ReactElement {
+export default function UserInfoBox(props: any): ReactElement {
   const accessToken = sessionStorage.getItem("accessToken");
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
@@ -41,11 +41,13 @@ export default function UserInfoBox(): ReactElement {
   } else if (pageName === "Travel") {
     pageColor = "#87CEEB";
   }
-  useState(() => {
+  useEffect(() => {
     if (pageName === "") {
       setCategory("Language");
+      props.getCategory("Language");
     } else {
       setCategory(pageName);
+      props.getCategory(pageName);
     }
   });
 

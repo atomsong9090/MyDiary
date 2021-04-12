@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 import UserInfo from "../components/userstatus";
-import Content from "../components/questioncard";
+import Content from "../components/content";
 
 export default function Mypage(): ReactElement {
   return (

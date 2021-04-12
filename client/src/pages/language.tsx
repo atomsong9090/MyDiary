@@ -1,20 +1,41 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Content from "../components/questioncard";
+import Content from "../components/content";
 import UserInfo from "../components/userinfobox";
 
-axios.defaults.baseURL = "52.79.253.196";
+export default function MainPage(): ReactElement {
+  const [contents, setContents]: any = useState([]);
+  const [category, setCategory] = useState("");
 
-export default function Language(): ReactElement {
+  function getCategory(category: string) {
+    setCategory(category);
+  }
+  useEffect(() => {
+    async function get() {
+      const contentsData = await axios({
+        url: "/contents",
+        method: "get",
+        params: { category: category },
+      });
+      setContents(contentsData.data.data);
+    }
+    get();
+  }, [category]);
+
   return (
     <Main>
       <Contents className="contents">
         <ContentBox>
-          <Content />
-          <Content />
+          {contents.length > 0 ? (
+            contents.map((el: any) => {
+              return <Content contentData={el} key={el.id} />;
+            })
+          ) : (
+            <Content />
+          )}
         </ContentBox>
-        <UserInfo />
+        <UserInfo getCategory={getCategory} />
       </Contents>
     </Main>
   );
