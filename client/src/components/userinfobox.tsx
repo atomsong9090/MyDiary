@@ -1,9 +1,34 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import avatar from "../assets/pika.png";
 
+axios.defaults.baseURL = "http://52.79.253.196:4000/";
+
 export default function UserInfoBox(): ReactElement {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+
+  async function createNewContent() {
+    await axios
+      .post(
+        "/content",
+        { title: title, text: text, category: category },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      )
+      .then((res) => console.log(res));
+  }
+
+  function getText(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setText(e.target.value);
+  }
+  function getTitle(e: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(e.target.value);
+  }
+
   const history = useHistory();
   let currentPage = history.location.pathname;
   let pageName = currentPage.slice(1);
@@ -16,6 +41,13 @@ export default function UserInfoBox(): ReactElement {
   } else if (pageName === "Travel") {
     pageColor = "#87CEEB";
   }
+  useState(() => {
+    if (pageName === "") {
+      setCategory("Language");
+    } else {
+      setCategory(pageName);
+    }
+  });
 
   return (
     <Main>
@@ -27,10 +59,14 @@ export default function UserInfoBox(): ReactElement {
             <UserName>PikaPika</UserName>
             <MypageBtn>mypage</MypageBtn>
           </AvatarBox>
-          <ContentText placeholder="Ask your question in here ..." />
+          <ConttentBox>
+            <ContentTitle onChange={getTitle} />
+            <ContentText onChange={getText} placeholder="Ask your question in here ..." />
+          </ConttentBox>
         </UserInfo>
         <Picture type="file" accept="image/png, image/jpeg" />
       </InfoBox>
+      <SubmitBtn onClick={createNewContent}>submit</SubmitBtn>
     </Main>
   );
 }
@@ -100,12 +136,18 @@ const MypageBtn = styled.div`
     color: white;
   }
 `;
+const ConttentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const ContentTitle = styled.input``;
 const ContentText = styled.textarea`
   resize: none;
   margin-top: 1rem;
-  height: 18rem;
+  height: 15rem;
   border: 0.1rem solid grey;
   border-radius: 0.5rem;
-  background-color: #f3e9e9;
+  //background-color: #f3e9e9;
 `;
+const SubmitBtn = styled.button``;
 const Picture = styled.input``;
