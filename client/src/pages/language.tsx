@@ -1,7 +1,10 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import Content from "../components/questioncard";
 import UserInfo from "../components/userinfobox";
+
+axios.defaults.baseURL = "52.79.253.196";
 
 export default function Language(): ReactElement {
   return (
