@@ -1,16 +1,37 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import UserInfo from "../components/userstatus";
-import Content from "../components/content";
+import Content from "../components/mycontent";
 
 export default function Mypage(): ReactElement {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [mycontents, setMycontents] = useState([]);
+
+  useEffect(() => {
+    async function getMyContents() {
+      await axios
+        .get("/mycontents", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => setMycontents(res.data.data));
+    }
+    getMyContents();
+  }, []);
+
   return (
     <>
       <Main>
         <UserInfo />
-        <ContentsBox>
-          <Content />
-        </ContentsBox>
+        {mycontents ? (
+          <ContentsBox>
+            {mycontents.map((el: any) => {
+              return <Content content={el} key={el.id} />;
+            })}
+          </ContentsBox>
+        ) : (
+          ""
+        )}
       </Main>
     </>
   );
@@ -22,9 +43,10 @@ const Main = styled.div`
 `;
 const ContentsBox = styled.div`
   width: 52rem;
-  height: 28rem;
-  background-color: white;
+  min-height: 28rem;
+  background-color: #fafafa;
   border: 0.1rem solid #dfdada;
   display: flex;
   margin: auto;
+  flex-direction: column;
 `;

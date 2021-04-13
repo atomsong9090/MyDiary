@@ -74,6 +74,14 @@ function App(): ReactElement {
           <Mypage />
         </Route>
       </Switch>
+      <Switch>
+        <Route exact path="/settings">
+          <Navbar />
+          <Signup />
+          <SignIn />
+          <Mypage />
+        </Route>
+      </Switch>
     </Router>
   );
 }

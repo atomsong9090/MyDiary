@@ -9,6 +9,7 @@ import userinfo from "../assets/user.svg";
 export default function Navbar(): ReactElement {
   const history = useHistory();
   const isLogin = sessionStorage.getItem("login");
+  const uid = sessionStorage.getItem("id");
 
   function openSignUpModal() {
     const SignUpModal: any = document.querySelector(".signup");
@@ -27,8 +28,8 @@ export default function Navbar(): ReactElement {
     }
   }
   function setLogOut(): any {
-    sessionStorage.setItem("login", "no");
-    window.location.reload();
+    sessionStorage.clear();
+    history.push("/");
   }
 
   return (
@@ -42,7 +43,7 @@ export default function Navbar(): ReactElement {
           ABC NATION
         </Title>
         <SearchBar>
-          <SerchBarInput maxLength={30} placeholder="Ask your Question in here😌" />
+          <SerchBarInput maxLength={30} placeholder="search" />
           <SearchIcon src={search} />
         </SearchBar>
         {isLogin !== "ok" ? (
@@ -67,7 +68,7 @@ export default function Navbar(): ReactElement {
               <MyPage
                 src={userinfo}
                 onClick={() => {
-                  history.push("/mypage");
+                  history.push(`/mypage?u=${uid}`);
                 }}
               />
             </BtnBox>

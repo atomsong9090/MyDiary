@@ -12,7 +12,7 @@ export default function Contents(props: any): ReactElement {
   const accessToken = sessionStorage.getItem("accessToken");
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState({});
-  const [textValue, setTextValue] = useState({});
+  const [textValue, setTextValue] = useState("");
   const myId = Number(sessionStorage.getItem("id"));
   let { contentData } = props;
   let imgs;
@@ -102,7 +102,14 @@ export default function Contents(props: any): ReactElement {
                   <CreatedAt>{contentData.createdAt}</CreatedAt>
                 </TitleBox>
               </TitleInfo>
-              {myId === contentData.user.id ? <DeleteBtn onClick={deleteContent}>×</DeleteBtn> : null}
+              {myId === contentData.user.id ? (
+                <DeleteBtn onClick={deleteContent}>×</DeleteBtn>
+              ) : (
+                <LikeBox className="likebtn">
+                  <LikeImg src={heart} />
+                  <Like>Like</Like>
+                </LikeBox>
+              )}
             </ContentInfo>
             <Ask>
               <ContentImgs>
@@ -124,10 +131,10 @@ export default function Contents(props: any): ReactElement {
                     />
                   </CommentInputBox>
                 </CreateComment>
-                <CommentBtn onClick={getComments}>
-                  {" "}
-                  {contentData.comments ? contentData.comments.length : 0} Comments
-                </CommentBtn>
+                <CommentResponseBox>
+                  <CommentResponseLikes>{contentData.likes.length} Likes</CommentResponseLikes>
+                  <CommentBtn onClick={getComments}> {contentData.comments.length} Comments</CommentBtn>
+                </CommentResponseBox>
               </CommentBtnBox>
             </Ask>
           </Content>
@@ -233,30 +240,16 @@ const GoToGuestBook = styled.div`
 const GoToUserContents = styled.div`
   width: 10rem;
 `;
-
-const ModalListWrapper = styled.div`
-  width: 11rem;
-  height: 2rem;
+const CommentResponseBox = styled.div`
   display: flex;
-  z-index: 1;
-  //margin-left: 1rem;
-  justify-content: center;
-  align-items: center;
-  border: 0.1rem solid grey;
+  justify-content: space-between;
+  width: 11rem;
+`;
+const CommentResponseLikes = styled.div`
   font-size: 1.1rem;
-  font-weight: 400;
-  &:hover {
-    background-color: grey;
-    ${GoToGuestBook} {
-      color: white;
-      font-weight: bold;
-    }
-    ${GoToUserContents} {
-      color: white;
-      font-weight: bold;
-    }
-    cursor: pointer;
-  }
+  margin-bottom: 1rem;
+  border: 0;
+  color: grey;
 `;
 
 const UserInfo = styled.div`
@@ -337,6 +330,7 @@ const CreateCommentInput = styled.input`
 `;
 const CommentInputBox = styled.div`
   display: flex;
+  align-items: center;
 `;
 const Comment = styled.div`
   background-color: #e9ecef;

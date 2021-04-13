@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import avatar from "../assets/turtle.jpeg";
+import { useHistory } from "react-router-dom";
+import avatar from "../assets/avatar.svg";
 import country from "../assets/country.svg";
 import join from "../assets/join.svg";
 import addfriend from "../assets/addfriend.svg";
@@ -8,21 +9,38 @@ import message from "../assets/message.svg";
 import info from "../assets/info.svg";
 
 export default function UserStatus(): ReactElement {
+  const history = useHistory();
+  const uid = sessionStorage.getItem("id");
+  let when = sessionStorage.getItem("when");
+  const avatarUrl: any = sessionStorage.getItem("avatar");
+  if (when) {
+    when = when.slice(0, 10);
+  }
+
+  function moveSetorContentPage(page: string) {
+    if (page === "mycontents") {
+      history.push(`/mypage?u=${uid}`);
+    }
+    if (page === "settings") {
+      history.push(`/settings?u=${uid}`);
+    }
+  }
+
   return (
     <Main>
       <Information>
         <UserInfoBox>
           <AvatarWrapper>
-            <Avatar src={avatar} />
+            <Avatar src={avatarUrl} />
           </AvatarWrapper>
-          <UserName>면목동꿀주먹</UserName>
+          <UserName>{sessionStorage.getItem("nickname")}</UserName>
           <InfoBox>
             <InfoImg src={country} />
-            <InfoDescription>South Korea</InfoDescription>
+            <InfoDescription>{sessionStorage.getItem("c")}</InfoDescription>
           </InfoBox>
           <InfoBox>
             <InfoImg src={join} />
-            <InfoDescription>2021-04-07</InfoDescription>
+            <InfoDescription>Join {when}</InfoDescription>
           </InfoBox>
         </UserInfoBox>
         <ControllerBox>
@@ -38,10 +56,27 @@ export default function UserStatus(): ReactElement {
         </ControllerBox>
       </Information>
       <Contents>
-        <ContentButton style={{ borderBottom: "0.2rem solid skyblue" }}>Contents</ContentButton>
-        <ContentButton>Comments</ContentButton>
-        <ContentButton>Likes</ContentButton>
-        <ContentButton>ETC</ContentButton>
+        {history.location.pathname !== "/settings" ? (
+          <>
+            <ContentButton
+              onClick={() => moveSetorContentPage("mycontents")}
+              style={{ borderBottom: "0.2rem solid skyblue" }}
+            >
+              Contents
+            </ContentButton>
+            <ContentButton onClick={() => moveSetorContentPage("settings")}>Setting</ContentButton>
+          </>
+        ) : (
+          <>
+            <ContentButton onClick={() => moveSetorContentPage("mycontents")}>Contents</ContentButton>
+            <ContentButton
+              onClick={() => moveSetorContentPage("settings")}
+              style={{ borderBottom: "0.2rem solid skyblue" }}
+            >
+              Setting
+            </ContentButton>
+          </>
+        )}
       </Contents>
     </Main>
   );
@@ -130,12 +165,11 @@ const ButtonImg = styled.img`
 const Contents = styled.div`
   width: 100%;
   height: 3rem;
-  background-color: red;
   display: flex;
   box-sizing: border-box;
 `;
 const ContentButton = styled.button`
-  width: 25%;
+  width: 50%;
   background-color: white;
   font-size: 1.2rem;
   border: 0;
