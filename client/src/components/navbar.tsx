@@ -51,7 +51,7 @@ export default function Navbar(): ReactElement {
             <SignInBtn onClick={openSignInModal}>Sign In</SignInBtn>
           </UserStatusBox>
         ) : (
-          <UserStatusBox_login>
+          <UserStatusBoxLogin>
             <BtnBox>
               <HomeBtn
                 src={home}
@@ -72,7 +72,7 @@ export default function Navbar(): ReactElement {
               />
             </BtnBox>
             <SignOutBtn onClick={() => setLogOut()}>Sign Out</SignOutBtn>
-          </UserStatusBox_login>
+          </UserStatusBoxLogin>
         )}
       </MenuBox>
     </Main>
@@ -81,11 +81,11 @@ export default function Navbar(): ReactElement {
 
 const Main = styled.div`
   height: 4rem;
-  border-bottom: 0.1rem solid #646363;
+  border-bottom: 0.1rem solid #413f3f;
   width: 100%;
   position: sticky;
   top: 0;
-  background-color: #424040;
+  background-color: #272626;
 `;
 const MenuBox = styled.div`
   display: flex;
@@ -113,7 +113,7 @@ const UserStatusBox = styled.div`
   width: 14rem;
 `;
 
-const UserStatusBox_login = styled.div`
+const UserStatusBoxLogin = styled.div`
   display: flex;
   align-items: flex-end;
   width: 14rem;

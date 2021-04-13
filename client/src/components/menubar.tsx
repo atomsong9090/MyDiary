@@ -15,6 +15,7 @@ export default function Question(): ReactElement {
           <ContentBox
             onClick={() => {
               historys.push("/");
+              window.location.reload();
             }}
           >
             {" "}
@@ -30,6 +31,7 @@ export default function Question(): ReactElement {
           <ContentBox
             onClick={() => {
               historys.push("/culture");
+              window.location.reload();
             }}
           >
             {" "}
@@ -46,6 +48,7 @@ export default function Question(): ReactElement {
           <ContentBox
             onClick={() => {
               historys.push("/history");
+              window.location.reload();
             }}
           >
             {" "}
@@ -55,13 +58,14 @@ export default function Question(): ReactElement {
               </ImgBox>
               <Title style={{ color: "white" }}>History</Title>
               <Detail>Show Detail ...</Detail>
-              <Description style={{ color: "#eeeed4" }}>K pop, Drama, ETC..</Description>
+              <Description style={{ color: "#eeeed4" }}>King, Economy, Internation Relations</Description>
             </Content>
           </ContentBox>
 
           <ContentBox
             onClick={() => {
               historys.push("/travel");
+              window.location.reload();
             }}
           >
             {" "}
@@ -71,7 +75,7 @@ export default function Question(): ReactElement {
               </ImgBox>
               <Title style={{ color: "white" }}>Travel</Title>
               <Detail>Show Detail ...</Detail>
-              <Description style={{ color: "white" }}>K pop, Drama, ETC..</Description>
+              <Description style={{ color: "white" }}>Hot place, landmarks</Description>
             </Content>
           </ContentBox>
         </Contents>

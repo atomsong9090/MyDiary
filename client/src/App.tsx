@@ -1,13 +1,21 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Language from "./pages/language";
 import Mypage from "./pages/mypage";
 import Navbar from "./components/navbar";
 import Menubar from "./components/menubar";
 import Signup from "./components/singup";
 import SignIn from "./components/signin";
+import CreateContent from "./components/userinfobox";
+import styled from "styled-components";
 
 function App(): ReactElement {
+  const [category, setCategory] = useState("");
+  function getCategory(category: string) {
+    setCategory(category);
+  }
+
   return (
     <Router>
       <Switch>
@@ -16,7 +24,10 @@ function App(): ReactElement {
           <Signup />
           <SignIn />
           <Menubar />
-          <Language />
+          <Contents>
+            <Language category={category} />
+            <CreateContent getCategory={getCategory} />
+          </Contents>
         </Route>
       </Switch>
       <Switch>
@@ -25,7 +36,10 @@ function App(): ReactElement {
           <Signup />
           <SignIn />
           <Menubar />
-          <Language />
+          <Contents>
+            <Language category={category} />
+            <CreateContent getCategory={getCategory} />
+          </Contents>
         </Route>
       </Switch>
       <Switch>
@@ -34,7 +48,10 @@ function App(): ReactElement {
           <Signup />
           <SignIn />
           <Menubar />
-          <Language />
+          <Contents>
+            <Language category={category} />
+            <CreateContent getCategory={getCategory} />
+          </Contents>
         </Route>
       </Switch>
       <Switch>
@@ -43,7 +60,10 @@ function App(): ReactElement {
           <Signup />
           <SignIn />
           <Menubar />
-          <Language />
+          <Contents>
+            <Language category={category} />
+            <CreateContent getCategory={getCategory} />
+          </Contents>
         </Route>
       </Switch>
       <Switch>
@@ -57,5 +77,11 @@ function App(): ReactElement {
     </Router>
   );
 }
+
+const Contents = styled.div`
+  display: flex;
+  width: 75rem;
+  margin: auto;
+`;
 
 export default App;

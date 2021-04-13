@@ -1,13 +1,78 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
-import avatar from "../assets/turtle.jpeg";
+import avatar from "../assets/avatar.svg";
 import country from "../assets/country.svg";
 import heart from "../assets/heart.svg";
 import heartSolid from "../assets/heart-solid.svg";
 
-export default function Banner(props: any): ReactElement {
-  const { contentData } = props;
-  console.log(contentData);
+axios.defaults.baseURL = "http://52.79.253.196:4000/";
+
+export default function Contents(props: any): ReactElement {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [comments, setComments] = useState([]);
+  const [content, setContent] = useState({});
+  const [textValue, setTextValue] = useState({});
+  const myId = Number(sessionStorage.getItem("id"));
+  let { contentData } = props;
+  let imgs;
+
+  async function onKeyPress(e: React.KeyboardEvent) {
+    if (e.key == "Enter") {
+      await axios
+        .post(
+          "/comment",
+          { text: textValue, contentId: contentData.id },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        )
+        .then(() => window.location.reload());
+    }
+  }
+
+  function getTextValue(e: React.ChangeEvent<HTMLInputElement>) {
+    setTextValue(e.target.value);
+  }
+
+  if (contentData) {
+    imgs = JSON.parse(contentData.imgUrls);
+    if (Object.keys(content).length === 0) {
+      setContent(contentData);
+    }
+  }
+
+  async function deleteContent() {
+    await axios
+      .delete("/dcontent", {
+        params: { contentId: contentData.id },
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .catch((err) => console.log(err));
+    window.location.reload();
+  }
+
+  async function deleteConmment(id: number) {
+    await axios
+      .delete("/dcomment", {
+        params: { commentId: id },
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    window.location.reload();
+  }
+
+  async function getComments() {
+    if (contentData.comments.length > 0) {
+      await axios({
+        url: "/comments",
+        method: "get",
+        params: {
+          contentId: contentData.id,
+        },
+      }).then((res) => setComments(res.data.rows));
+    }
+  }
+
   function openUserInfoModal() {
     const modal: any = document.querySelector(".modal");
 
@@ -28,19 +93,41 @@ export default function Banner(props: any): ReactElement {
                 <UserAvatar src={avatar} style={{ height: "4rem", width: "4rem" }} />
                 <TitleBox>
                   <UserInfo>
-                    <UserName>TurtleMan</UserName>
+                    <UserName>{contentData.user.nickname}</UserName>
                     <CountryImg src={country} />
-                    <CountryName> South Korea</CountryName>
+                    <CountryName> {contentData.user.country}</CountryName>
                   </UserInfo>
+
                   <Title>{contentData.title}</Title>
                   <CreatedAt>{contentData.createdAt}</CreatedAt>
                 </TitleBox>
               </TitleInfo>
+              {myId === contentData.user.id ? <DeleteBtn onClick={deleteContent}>×</DeleteBtn> : null}
             </ContentInfo>
             <Ask>
+              <ContentImgs>
+                {imgs
+                  ? imgs.map((el: string) => {
+                      return <ContentImg src={el} key={Math.random()} />;
+                    })
+                  : ""}
+              </ContentImgs>
               <AskText>{contentData.text}</AskText>
               <CommentBtnBox>
-                <CommentBtn> {contentData.likes.length} Comments</CommentBtn>
+                <CreateComment>
+                  <CommentInputBox>
+                    <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", margin: "auto 1rem" }} />
+                    <CreateCommentInput
+                      onChange={getTextValue}
+                      onKeyPress={onKeyPress}
+                      placeholder="Leave Your Comment & Enter"
+                    />
+                  </CommentInputBox>
+                </CreateComment>
+                <CommentBtn onClick={getComments}>
+                  {" "}
+                  {contentData.comments ? contentData.comments.length : 0} Comments
+                </CommentBtn>
               </CommentBtnBox>
             </Ask>
           </Content>
@@ -48,46 +135,46 @@ export default function Banner(props: any): ReactElement {
           ""
         )}
 
-        <Comments className="comments" style={{ display: "none" }}>
-          <CommentBox>
-            <CreateComment>
-              <CommentInputBox>
-                <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", margin: "auto 1rem" }} />
-                <CreateCommentInput placeholder="Leave Your Comment & Enter" />
-              </CommentInputBox>
-            </CreateComment>
-            <Comment>
-              <TitleInfo>
-                <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", marginLeft: "1rem" }} />
-                <TitleBox>
-                  <UserInfo>
-                    <UserName onClick={() => openUserInfoModal()}>꼬부기</UserName>
-                    <CountryImg src={country} />
-                    <CountryName> South Korea</CountryName>
-                  </UserInfo>
-                  <UserInfoModal className="modal" style={{ display: "none" }}>
-                    <ModalListWrapper>
-                      <GoToGuestBook>꼬부기's GuestBook</GoToGuestBook>
-                    </ModalListWrapper>
-                    <ModalListWrapper>
-                      <GoToUserContents>꼬부기's Contents</GoToUserContents>
-                    </ModalListWrapper>
-                  </UserInfoModal>
-                  <CommentText>한국어로 "오렌지" 입니다.</CommentText>
-                </TitleBox>
-              </TitleInfo>
-              <LikesCount>0 Likes</LikesCount>
-            </Comment>
-            <CommentLikeBox>
-              <LikeBox>
-                <LikeImg src={heart} />
-                <Like>Like</Like>
-              </LikeBox>
-              <CommentFixBtn>· FIX ·</CommentFixBtn>
-              <CommentCreatedAt>2021-04-05</CommentCreatedAt>
-            </CommentLikeBox>
-          </CommentBox>
-        </Comments>
+        {contentData && comments.length > 0
+          ? comments.map((el: any) => {
+              return (
+                <Comments className="comments" key={el.id} style={{ display: "flex" }}>
+                  <CommentBox>
+                    <Comment>
+                      <TitleInfo>
+                        <CommentInfoWrapper>
+                          <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", marginLeft: "1rem" }} />
+                          <TitleBox>
+                            <UserInfo>
+                              <UserName onClick={() => openUserInfoModal()}>{el.user.nickname}</UserName>
+                              <CountryImg src={country} />
+                              <CountryName> {el.user.country}</CountryName>
+                            </UserInfo>
+                            <CommentText>{el.text}</CommentText>
+                          </TitleBox>
+                        </CommentInfoWrapper>
+                        {el.userId === myId ? (
+                          <DeleteBtn onClick={() => deleteConmment(el.id)} style={{ border: 0, fontSize: "2rem" }}>
+                            ×
+                          </DeleteBtn>
+                        ) : null}
+                      </TitleInfo>
+                      <CommentLikeBox>
+                        <CommentInfo>
+                          <LikeBox>
+                            <LikeImg src={heart} />
+                            <Like>Like</Like>
+                          </LikeBox>
+                          <CommentCreatedAt>{el.createdAt}</CommentCreatedAt>
+                        </CommentInfo>
+                        <LikesCount>{el.likes.length} Likes</LikesCount>
+                      </CommentLikeBox>
+                    </Comment>
+                  </CommentBox>
+                </Comments>
+              );
+            })
+          : ""}
       </ContentBox>
     </Main>
   );
@@ -111,8 +198,18 @@ const ContentBox = styled.div`
 const Content = styled.div`
   margin: 1rem;
 `;
+const ContentImgs = styled.div`
+  width: 16rem;
+  margin-top: 1rem;
+`;
+const ContentImg = styled.img`
+  border: 0.1rem solid grey;
+  width: 7rem;
+  height: 7rem;
+`;
 const ContentInfo = styled.div`
-  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
 `;
 const TitleBox = styled.div`
   margin-left: 1rem;
@@ -124,17 +221,12 @@ const Title = styled.h3`
 const CreatedAt = styled.span``;
 const TitleInfo = styled.div`
   display: flex;
+  justify-content: space-between;
+`;
+const CommentInfoWrapper = styled.div`
+  display: flex;
 `;
 
-const UserInfoModal = styled.div`
-  //position: absolute;
-
-  background-color: white;
-  flex-direction: column;
-  border: 0.2rem solid skyblue;
-  //z-index: 1;
-  position: absolute;
-`;
 const GoToGuestBook = styled.div`
   width: 10rem;
 `;
@@ -182,7 +274,7 @@ const CountryName = styled.div`
   margin-left: 0.3rem;
 `;
 const UserAvatar = styled.img`
-  border: 1px solid grey;
+  border: 0.15rem solid black;
   border-radius: 50%;
 `;
 const UserName = styled.div`
@@ -203,17 +295,22 @@ const AskText = styled.div`
   width: 40rem;
   min-height: 3rem;
   font-size: 1.2rem;
+  word-break: break-all;
 `;
 const CommentBtnBox = styled.div`
   border-bottom: 0.1rem solid grey;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
 `;
 const CommentBtn = styled.div`
   font-size: 1.1rem;
   margin-bottom: 1rem;
   border: 0;
   color: grey;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Comments = styled.div`
@@ -226,15 +323,17 @@ const CreateComment = styled.div`
   border-radius: 1rem;
   min-height: 3rem;
   display: flex;
+  width: 25rem;
   align-items: center;
 `;
 const CreateCommentInput = styled.input`
-  width: 20rem;
+  width: 19rem;
   height: 2rem;
   border: 1px solid black;
   border-radius: 1rem;
   margin-top: 0.1rem;
   font-size: 1.2rem;
+  word-break: break-all;
 `;
 const CommentInputBox = styled.div`
   display: flex;
@@ -245,14 +344,20 @@ const Comment = styled.div`
   border-radius: 1rem;
   min-height: 4rem;
   margin-top: 1rem;
-  //position: relative;
+  width: 25rem;
 `;
 const CommentText = styled.div`
   z-index: 0;
   //position: absolute;
 `;
+const CommentInfo = styled.div`
+  display: flex;
+`;
 const CommentLikeBox = styled.div`
   display: flex;
+  margin-left: 1.2rem;
+  margin-top: 1rem;
+  justify-content: space-between;
 `;
 const LikesCount = styled.div`
   display: flex;
@@ -274,7 +379,7 @@ const LikeBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.1rem solid grey;
+  //border: 0.1rem solid grey;
   border-radius: 50%;
   &:hover {
     ${Like} {
@@ -328,7 +433,7 @@ const LikeBox = styled.div`
 
 const CommentFixBtn = styled.button`
   border: none;
-  background-color: white;
+  //background-color: white;
   color: grey;
   font-weight: bold;
   font-size: 1.1rem;
@@ -343,4 +448,16 @@ const CommentCreatedAt = styled.div`
   color: grey;
   display: flex;
   align-items: center;
+`;
+const DeleteBtn = styled.div`
+  font-size: 1.4rem;
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  border: 0.15rem solid black;
+  &:hover {
+    cursor: pointer;
+  }
 `;

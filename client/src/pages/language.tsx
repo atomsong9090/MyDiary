@@ -2,25 +2,24 @@ import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Content from "../components/content";
-import UserInfo from "../components/userinfobox";
 
-export default function MainPage(): ReactElement {
+axios.defaults.baseURL = "http://52.79.253.196:4000";
+
+export default function MainPage(props: any): ReactElement {
   const [contents, setContents]: any = useState([]);
-  const [category, setCategory] = useState("");
-
-  function getCategory(category: string) {
-    setCategory(category);
-  }
+  const { category } = props;
   useEffect(() => {
-    async function get() {
-      const contentsData = await axios({
-        url: "/contents",
-        method: "get",
-        params: { category: category },
-      });
-      setContents(contentsData.data.data);
+    if (category.length > 1) {
+      async function get() {
+        const contentsData = await axios({
+          url: "/contents",
+          method: "get",
+          params: { category: category },
+        });
+        setContents(contentsData.data.data);
+      }
+      get();
     }
-    get();
   }, [category]);
 
   return (
@@ -35,7 +34,6 @@ export default function MainPage(): ReactElement {
             <Content />
           )}
         </ContentBox>
-        <UserInfo getCategory={getCategory} />
       </Contents>
     </Main>
   );
@@ -43,6 +41,8 @@ export default function MainPage(): ReactElement {
 const Main = styled.div`
   display: flex;
   flex-direction: column;
+  // background-color: red;
+  width: 52rem;
 `;
 
 const Contents = styled.div`
@@ -50,7 +50,7 @@ const Contents = styled.div`
   height: 35rem;
   margin: 1rem auto;
   display: flex;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   ::-webkit-scrollbar {
     background-color: #4b4b4b;
   }
@@ -61,4 +61,5 @@ const Contents = styled.div`
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
+  //margin: auto;
 `;
