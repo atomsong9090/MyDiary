@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Language from "./pages/language";
 import Mypage from "./pages/mypage";
+import Setting from "./pages/settings";
 import Navbar from "./components/navbar";
 import Menubar from "./components/menubar";
 import Signup from "./components/singup";
@@ -79,7 +80,7 @@ function App(): ReactElement {
           <Navbar />
           <Signup />
           <SignIn />
-          <Mypage />
+          <Setting />
         </Route>
       </Switch>
     </Router>

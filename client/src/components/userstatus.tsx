@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import avatar from "../assets/avatar.svg";
@@ -7,17 +7,21 @@ import join from "../assets/join.svg";
 import addfriend from "../assets/addfriend.svg";
 import message from "../assets/message.svg";
 import info from "../assets/info.svg";
+import axios from "axios";
 
 export default function UserStatus(): ReactElement {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const [userdata, setUserdata]: any = useState({});
+
   const history = useHistory();
   const uid = sessionStorage.getItem("id");
-  let when = sessionStorage.getItem("when");
+  let when = userdata.createdAt;
   const avatarUrl: any = sessionStorage.getItem("avatar");
   if (when) {
     when = when.slice(0, 10);
   }
 
-  function moveSetorContentPage(page: string) {
+  function moveSettingOrContentPage(page: string) {
     if (page === "mycontents") {
       history.push(`/mypage?u=${uid}`);
     }
@@ -25,18 +29,26 @@ export default function UserStatus(): ReactElement {
       history.push(`/settings?u=${uid}`);
     }
   }
+  useEffect(() => {
+    async function getUserInfo() {
+      await axios
+        .get("/user", { headers: { Authorization: `Bearer ${accessToken}` } })
+        .then((res) => setUserdata(res.data.data));
+    }
+    getUserInfo();
+  }, []);
 
   return (
     <Main>
       <Information>
         <UserInfoBox>
           <AvatarWrapper>
-            <Avatar src={avatarUrl} />
+            <Avatar src={userdata.avatarUrl ? userdata.avatarUrl : avatar} />
           </AvatarWrapper>
-          <UserName>{sessionStorage.getItem("nickname")}</UserName>
+          <UserName>{userdata.nickname}</UserName>
           <InfoBox>
             <InfoImg src={country} />
-            <InfoDescription>{sessionStorage.getItem("c")}</InfoDescription>
+            <InfoDescription>{userdata.country}</InfoDescription>
           </InfoBox>
           <InfoBox>
             <InfoImg src={join} />
@@ -59,18 +71,18 @@ export default function UserStatus(): ReactElement {
         {history.location.pathname !== "/settings" ? (
           <>
             <ContentButton
-              onClick={() => moveSetorContentPage("mycontents")}
+              onClick={() => moveSettingOrContentPage("mycontents")}
               style={{ borderBottom: "0.2rem solid skyblue" }}
             >
               Contents
             </ContentButton>
-            <ContentButton onClick={() => moveSetorContentPage("settings")}>Setting</ContentButton>
+            <ContentButton onClick={() => moveSettingOrContentPage("settings")}>Setting</ContentButton>
           </>
         ) : (
           <>
-            <ContentButton onClick={() => moveSetorContentPage("mycontents")}>Contents</ContentButton>
+            <ContentButton onClick={() => moveSettingOrContentPage("mycontents")}>Contents</ContentButton>
             <ContentButton
-              onClick={() => moveSetorContentPage("settings")}
+              onClick={() => moveSettingOrContentPage("settings")}
               style={{ borderBottom: "0.2rem solid skyblue" }}
             >
               Setting

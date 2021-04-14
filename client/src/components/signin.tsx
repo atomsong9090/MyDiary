@@ -16,8 +16,6 @@ export default function SingIn(): ReactElement {
         sessionStorage.setItem("login", "ok");
         sessionStorage.setItem("nickname", res.data.data.userData.nickname);
         sessionStorage.setItem("id", res.data.data.userData.id);
-        sessionStorage.setItem("c", res.data.data.userData.country);
-        sessionStorage.setItem("when", res.data.data.userData.createdAt);
         sessionStorage.setItem("avatar", res.data.data.userData.avatarUrl);
         window.location.reload();
       })

@@ -90,7 +90,10 @@ export default function Contents(props: any): ReactElement {
           <Content>
             <ContentInfo>
               <TitleInfo className="userInfo">
-                <UserAvatar src={avatar} style={{ height: "4rem", width: "4rem" }} />
+                <UserAvatar
+                  src={contentData.user.avatarUrl ? contentData.user.avatarUrl : avatar}
+                  style={{ height: "4rem", width: "4rem" }}
+                />
                 <TitleBox>
                   <UserInfo>
                     <UserName>{contentData.user.nickname}</UserName>
@@ -123,7 +126,10 @@ export default function Contents(props: any): ReactElement {
               <CommentBtnBox>
                 <CreateComment>
                   <CommentInputBox>
-                    <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", margin: "auto 1rem" }} />
+                    <UserAvatar
+                      src={contentData.user.avatarUrl ? contentData.user.avatarUrl : avatar}
+                      style={{ height: "2.5rem", width: "2.5rem", margin: "auto 1rem" }}
+                    />
                     <CreateCommentInput
                       onChange={getTextValue}
                       onKeyPress={onKeyPress}
@@ -150,7 +156,10 @@ export default function Contents(props: any): ReactElement {
                     <Comment>
                       <TitleInfo>
                         <CommentInfoWrapper>
-                          <UserAvatar src={avatar} style={{ height: "2.5rem", width: "2.5rem", marginLeft: "1rem" }} />
+                          <UserAvatar
+                            src={el.user.avatarUrl ? el.user.avatarUrl : avatar}
+                            style={{ height: "2.5rem", width: "2.5rem", marginLeft: "1rem" }}
+                          />
                           <TitleBox>
                             <UserInfo>
                               <UserName onClick={() => openUserInfoModal()}>{el.user.nickname}</UserName>

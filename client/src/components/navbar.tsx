@@ -30,6 +30,7 @@ export default function Navbar(): ReactElement {
   function setLogOut(): any {
     sessionStorage.clear();
     history.push("/");
+    window.location.reload();
   }
 
   return (
