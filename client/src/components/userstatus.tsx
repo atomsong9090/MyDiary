@@ -16,7 +16,7 @@ export default function UserStatus(): ReactElement {
   const history = useHistory();
   const uid = sessionStorage.getItem("id");
   let when = userdata.createdAt;
-  const avatarUrl: any = sessionStorage.getItem("avatar");
+
   if (when) {
     when = when.slice(0, 10);
   }
@@ -36,7 +36,7 @@ export default function UserStatus(): ReactElement {
         .then((res) => setUserdata(res.data.data));
     }
     getUserInfo();
-  }, []);
+  }, [accessToken]);
 
   return (
     <Main>

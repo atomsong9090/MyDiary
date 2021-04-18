@@ -5,16 +5,16 @@ import { useHistory } from "react-router-dom";
 import avatar from "../assets/avatar.svg";
 import backgroundimg from "../assets/images.svg";
 
-axios.defaults.baseURL = "http://52.79.253.196:4000/";
-
 export default function UserInfoBox(props: any): ReactElement {
   const accessToken = sessionStorage.getItem("accessToken");
-  const userAvatar = sessionStorage.getItem("avatar");
+
+  const [userInfo, setUserInfo]: any = useState("");
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [images, setImages] = React.useState<string[]>([]);
 
+  console.log(userInfo);
   async function createNewContent() {
     await axios
       .post(
@@ -49,6 +49,12 @@ export default function UserInfoBox(props: any): ReactElement {
     pageColor = "#87CEEB";
   }
   useEffect(() => {
+    if (!userInfo) {
+      axios
+        .get("user", { headers: { Authorization: `Bearer ${accessToken}` } })
+        .then((res) => setUserInfo(res.data.data));
+    }
+
     if (pageName === "") {
       setCategory("Language");
       props.getCategory("Language");
@@ -103,8 +109,12 @@ export default function UserInfoBox(props: any): ReactElement {
       <InfoBox>
         <UserInfo>
           <AvatarBox>
-            <Avatar src={userAvatar ? userAvatar : avatar} />
-            <UserName>{sessionStorage.getItem("nickname") ? sessionStorage.getItem("nickname") : "Anonymous"}</UserName>
+            {sessionStorage.getItem("login") === "ok" ? (
+              <>
+                <Avatar src={userInfo.avatarUrl ? userInfo.avatarUrl : avatar} />
+                <UserName>{userInfo.nickname ? userInfo.nickname : "Anonymous"}</UserName>
+              </>
+            ) : null}
           </AvatarBox>
         </UserInfo>
         {sessionStorage.getItem("login") === "ok" ? (
@@ -201,21 +211,6 @@ const UserName = styled.div`
   align-items: flex-end;
 `;
 
-const MypageBtn = styled.div`
-  background-color: white;
-  margin-left: 0.5rem;
-  height: 1rem;
-  width: 4rem;
-  border: 1px solid grey;
-  border-radius: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  &:hover {
-    background-color: #cedff0;
-    color: white;
-  }
-`;
 const ConttentBox = styled.div`
   display: flex;
   flex-direction: column;

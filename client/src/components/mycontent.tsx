@@ -4,7 +4,6 @@ import axios from "axios";
 import avatar from "../assets/turtle.jpeg";
 import country from "../assets/country.svg";
 import heart from "../assets/heart.svg";
-import heartSolid from "../assets/heart-solid.svg";
 
 export default function Mycontents(props: any): ReactElement {
   const { content } = props;
@@ -48,7 +47,7 @@ export default function Mycontents(props: any): ReactElement {
     window.location.reload();
   }
   async function onKeyPress(e: React.KeyboardEvent) {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
       await axios
         .post(
           "/comment",
@@ -398,19 +397,6 @@ const LikeBox = styled.div`
   }
 `;
 
-const CommentFixBtn = styled.button`
-  border: none;
-  background-color: white;
-  color: grey;
-  font-weight: bold;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-    color: black;
-  }
-`;
 const CommentCreatedAt = styled.div`
   color: grey;
   display: flex;

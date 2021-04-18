@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { ReactElement, useState } from "react";
 import styled from "styled-components";
-axios.defaults.baseURL = "http://52.79.253.196:4000/";
 
 export default function SingIn(): ReactElement {
   const [email, setEmail] = useState("");

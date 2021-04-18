@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import axios from "axios";
 import Language from "./pages/language";
 import Mypage from "./pages/mypage";
 import Setting from "./pages/settings";
@@ -10,6 +10,8 @@ import Signup from "./components/singup";
 import SignIn from "./components/signin";
 import CreateContent from "./components/userinfobox";
 import styled from "styled-components";
+
+axios.defaults.baseURL = "http://52.78.136.21:4000/";
 
 function App(): ReactElement {
   const [category, setCategory] = useState("");

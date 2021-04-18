@@ -17,7 +17,7 @@ export default function Mypage(): ReactElement {
         .then((res) => setMycontents(res.data.data));
     }
     getMyContents();
-  }, []);
+  }, [accessToken]);
 
   return (
     <>

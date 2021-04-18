@@ -3,8 +3,6 @@ import styled from "styled-components";
 import axios from "axios";
 import Content from "../components/content";
 
-axios.defaults.baseURL = "http://52.79.253.196:4000";
-
 export default function MainPage(props: any): ReactElement {
   const [contents, setContents]: any = useState([]);
   const { category } = props;

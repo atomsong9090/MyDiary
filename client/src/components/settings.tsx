@@ -21,25 +21,32 @@ export default function Settings(): ReactElement {
     setUserData({ ...userData, newPassword: e.target.value });
   }
   function setNewInformation() {
-    axios.patch(
-      "/uuser",
-      {
-        nickname: userData.nickname,
-        country: userData.country,
-        pasword: userData.password,
-        newPassword: userData.newPassword,
-        avatarUrl: image,
-      },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+    axios
+      .patch(
+        "/uuser",
+        {
+          nickname: userData.nickname,
+          country: userData.country,
+          pasword: userData.password,
+          newPassword: userData.newPassword,
+          avatarUrl: image,
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert("오류가 발생했습니다.");
+      });
   }
   async function imageOnchange(event: React.ChangeEvent<HTMLInputElement>) {
     const reader = new FileReader();
     const file: any = event.target.files;
     const previewImgs: any = document.querySelector(".imgbox");
-    const previewImgLength = previewImgs.childElementCount;
+
     reader.onload = () => {
       const img: any = document.createElement("img");
       img.setAttribute("src", reader.result);

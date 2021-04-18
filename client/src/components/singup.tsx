@@ -2,7 +2,6 @@ import React, { ReactElement, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { isEmailForm } from "../common/validation";
-axios.defaults.baseURL = "http://52.79.253.196:4000/";
 
 export default function SingUp(): ReactElement {
   const [email, setEmail] = useState("");

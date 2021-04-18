@@ -4,9 +4,6 @@ import styled from "styled-components";
 import avatar from "../assets/avatar.svg";
 import country from "../assets/country.svg";
 import heart from "../assets/heart.svg";
-import heartSolid from "../assets/heart-solid.svg";
-
-axios.defaults.baseURL = "http://52.79.253.196:4000/";
 
 export default function Contents(props: any): ReactElement {
   const accessToken = sessionStorage.getItem("accessToken");
@@ -16,9 +13,10 @@ export default function Contents(props: any): ReactElement {
   const myId = Number(sessionStorage.getItem("id"));
   let { contentData } = props;
   let imgs;
+  const loginState = sessionStorage.getItem("login");
 
   async function onKeyPress(e: React.KeyboardEvent) {
-    if (e.key == "Enter") {
+    if (e.key === "Enter" && loginState === "ok") {
       await axios
         .post(
           "/comment",
@@ -26,6 +24,9 @@ export default function Contents(props: any): ReactElement {
           { headers: { Authorization: `Bearer ${accessToken}` } }
         )
         .then(() => window.location.reload());
+    }
+    if (!loginState) {
+      alert("you have to login");
     }
   }
 
@@ -242,13 +243,6 @@ const TitleInfo = styled.div`
 const CommentInfoWrapper = styled.div`
   display: flex;
 `;
-
-const GoToGuestBook = styled.div`
-  width: 10rem;
-`;
-const GoToUserContents = styled.div`
-  width: 10rem;
-`;
 const CommentResponseBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -434,19 +428,6 @@ const LikeBox = styled.div`
   }
 `;
 
-const CommentFixBtn = styled.button`
-  border: none;
-  //background-color: white;
-  color: grey;
-  font-weight: bold;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-    color: black;
-  }
-`;
 const CommentCreatedAt = styled.div`
   color: grey;
   display: flex;
