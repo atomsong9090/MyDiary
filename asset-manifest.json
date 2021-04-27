@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/askToNative/static/css/main.6dea0f05.chunk.css",
+    "main.js": "/askToNative/static/js/main.93ae449d.chunk.js",
+    "main.js.map": "/askToNative/static/js/main.93ae449d.chunk.js.map",
+    "runtime-main.js": "/askToNative/static/js/runtime-main.03f2a638.js",
+    "runtime-main.js.map": "/askToNative/static/js/runtime-main.03f2a638.js.map",
+    "static/js/2.4657c24b.chunk.js": "/askToNative/static/js/2.4657c24b.chunk.js",
+    "static/js/2.4657c24b.chunk.js.map": "/askToNative/static/js/2.4657c24b.chunk.js.map",
+    "static/js/3.af1eae2a.chunk.js": "/askToNative/static/js/3.af1eae2a.chunk.js",
+    "static/js/3.af1eae2a.chunk.js.map": "/askToNative/static/js/3.af1eae2a.chunk.js.map",
+    "index.html": "/askToNative/index.html",
+    "static/css/main.6dea0f05.chunk.css.map": "/askToNative/static/css/main.6dea0f05.chunk.css.map",
+    "static/js/2.4657c24b.chunk.js.LICENSE.txt": "/askToNative/static/js/2.4657c24b.chunk.js.LICENSE.txt",
+    "static/media/addfriend.0d49266d.svg": "/askToNative/static/media/addfriend.0d49266d.svg",
+    "static/media/alphabet.c8b6bc10.svg": "/askToNative/static/media/alphabet.c8b6bc10.svg",
+    "static/media/avatar.f740127c.svg": "/askToNative/static/media/avatar.f740127c.svg",
+    "static/media/country.1a7da3cd.svg": "/askToNative/static/media/country.1a7da3cd.svg",
+    "static/media/guestbook.4767a242.svg": "/askToNative/static/media/guestbook.4767a242.svg",
+    "static/media/heart.f358882f.svg": "/askToNative/static/media/heart.f358882f.svg",
+    "static/media/history.d0488ba8.svg": "/askToNative/static/media/history.d0488ba8.svg",
+    "static/media/home.c6e3fe62.svg": "/askToNative/static/media/home.c6e3fe62.svg",
+    "static/media/images.23b84f4b.svg": "/askToNative/static/media/images.23b84f4b.svg",
+    "static/media/info.c60e418f.svg": "/askToNative/static/media/info.c60e418f.svg",
+    "static/media/join.fb4804c6.svg": "/askToNative/static/media/join.fb4804c6.svg",
+    "static/media/landmark.459caee6.svg": "/askToNative/static/media/landmark.459caee6.svg",
+    "static/media/message.57094fe6.svg": "/askToNative/static/media/message.57094fe6.svg",
+    "static/media/search.cc51b702.svg": "/askToNative/static/media/search.cc51b702.svg",
+    "static/media/travel.557d903d.svg": "/askToNative/static/media/travel.557d903d.svg",
+    "static/media/turtle.f8ee9e33.jpeg": "/askToNative/static/media/turtle.f8ee9e33.jpeg",
+    "static/media/user.47ea9d5d.svg": "/askToNative/static/media/user.47ea9d5d.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.03f2a638.js",
+    "static/js/2.4657c24b.chunk.js",
+    "static/css/main.6dea0f05.chunk.css",
+    "static/js/main.93ae449d.chunk.js"
+  ]
+}
