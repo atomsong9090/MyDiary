@@ -39,7 +39,7 @@ export default function SingUp(): ReactElement {
   }
   async function signUpAction() {
     await axios
-      .post("/signup", { email: email, nickname: nickname, password: password })
+      .post("/signup", { email: email, nickname: nickname, password: password, country: "stateless" })
       .then((res) => {
         sessionStorage.setItem("accessToken", res.data.data.accessToken);
         sessionStorage.setItem("login", "ok");

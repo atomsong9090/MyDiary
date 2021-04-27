@@ -14,6 +14,9 @@ export default function Contents(props: any): ReactElement {
   let { contentData } = props;
   let imgs;
   const loginState = sessionStorage.getItem("login");
+  if (contentData) {
+    contentData.createdAt = contentData.createdAt.slice(0, 10);
+  }
 
   async function onKeyPress(e: React.KeyboardEvent) {
     if (e.key === "Enter" && loginState === "ok") {
@@ -70,7 +73,12 @@ export default function Contents(props: any): ReactElement {
         params: {
           contentId: contentData.id,
         },
-      }).then((res) => setComments(res.data.rows));
+      }).then((res) => {
+        res.data.rows.map((el: any) => {
+          return (el.createdAt = el.createdAt.slice(0, 10));
+        });
+        setComments(res.data.rows);
+      });
     }
   }
 

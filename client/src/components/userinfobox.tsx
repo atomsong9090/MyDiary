@@ -14,19 +14,22 @@ export default function UserInfoBox(props: any): ReactElement {
   const [category, setCategory] = useState("");
   const [images, setImages] = React.useState<string[]>([]);
 
-  console.log(userInfo);
   async function createNewContent() {
-    await axios
-      .post(
-        "/content",
-        { title: title, text: text, category: category, imgUrls: JSON.stringify(images) },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      )
-      .catch((err) => {
-        window.location.reload();
-        console.log(err);
-      });
-    window.location.reload();
+    if (text && title) {
+      await axios
+        .post(
+          "/content",
+          { title: title, text: text, category: category, imgUrls: JSON.stringify(images) },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        )
+        .catch((err) => {
+          window.location.reload();
+          console.log(err);
+        });
+      window.location.reload();
+    } else {
+      alert("must write the title and content");
+    }
   }
 
   function getText(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -62,7 +65,7 @@ export default function UserInfoBox(props: any): ReactElement {
       setCategory(pageName);
       props.getCategory(pageName);
     }
-  }, [pageName, props]);
+  }, [pageName, props, accessToken, userInfo]);
 
   async function imageOnchange(event: React.ChangeEvent<HTMLInputElement>) {
     const reader = new FileReader();
@@ -81,10 +84,14 @@ export default function UserInfoBox(props: any): ReactElement {
       if (previewImgLength >= 3) {
         alert("you can upload maximum 3 images");
       } else {
-        description.remove();
         previewImgs.appendChild(img);
       }
     };
+
+    if (description) {
+      description.remove();
+    }
+
     if (file.length !== 0) {
       reader.readAsDataURL(file[0]);
       if (event.target.files !== null && previewImgLength < 3) {
@@ -236,9 +243,9 @@ const SubmitBtn = styled.button`
   width: 8rem;
   height: 2rem;
   font-size: 1.5rem;
-  background-color: pink;
+  background-color: #869cb9;
   border: 0.1rem solid black;
-  color: blue;
+  color: white;
   &:hover {
     background-color: grey;
     color: white;
